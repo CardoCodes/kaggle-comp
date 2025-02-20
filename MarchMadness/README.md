@@ -27,6 +27,23 @@ unzip march-machine-learning-mania-2025.zip
 mv *.csv ./data
 ```
 
+Use the following pip install command to install all the packages needed for this project.
+
+```bash
+pip install numpy pandas matplotlib seaborn plotly
+```
+
+or alternatively you can install using the requirements.txt file.
+
+```bash
+pip install -r requirements.txt
+```
+
+
+
+
+
+
 
 
 
