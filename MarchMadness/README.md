@@ -1,0 +1,32 @@
+# March Madness Kaggle Competition
+
+## Installation
+
+This project uses the data from the [March Madness Kaggle Competition](https://www.kaggle.com/competitions/march-machine-learning-mania-2025).
+
+This will require you to have a kaggle account and a API key that can be found [here](https://www.kaggle.com/settings/).
+
+Once you have the kaggle.json file, move it to the correct directory.
+
+```bash
+mkdir -p ~/.kaggle
+mv ~/Downloads/kaggle.json ~/.kaggle/
+chmod 600 ~/.kaggle/kaggle.json
+```
+
+Then you can download the data using the following command:
+
+```bash
+kaggle competitions download -c march-machine-learning-mania-2025
+```
+
+once you have installed the kaggle dataset, you can unzip the file and move it to the correct directory.
+
+```bash
+unzip march-machine-learning-mania-2025.zip
+mv *.csv ./data
+```
+
+
+
+
