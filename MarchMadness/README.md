@@ -20,7 +20,7 @@ Then you can download the data using the following command:
 kaggle competitions download -c march-machine-learning-mania-2025
 ```
 
-once you have installed the kaggle dataset, you can unzip the file and move it to the correct directory.
+Once you have installed the kaggle dataset, you can unzip the file and move it to the correct directory.
 
 ```bash
 unzip march-machine-learning-mania-2025.zip
