@@ -303,15 +303,19 @@ class MarchMadnessPredictor:
             height=800,           # Increase height for better visibility
             width=900,            # Increase width for better visibility
             xaxis=dict(
-                title='Winning Seed',
-                titlefont=dict(size=14),
+                title=dict(
+                    text='Winning Seed',
+                    font=dict(size=14)
+                ),
                 tickmode='linear',
                 tick0=1,
                 dtick=1
             ),
             yaxis=dict(
-                title='Losing Seed',
-                titlefont=dict(size=14),
+                title=dict(
+                    text='Losing Seed',
+                    font=dict(size=14)
+                ),
                 tickmode='linear',
                 tick0=1,
                 dtick=1,

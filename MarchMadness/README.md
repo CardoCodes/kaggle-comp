@@ -39,4 +39,6 @@ or alternatively you can install using the requirements.txt file.
 pip install -r requirements.txt
 ```
 
-## Data
+## Running
+
+Im currently working on a .py file that can be ran in bash terminal. A .ipynb file will be created to support a draft submission for kaggle.
