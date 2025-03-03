@@ -388,9 +388,229 @@ class MarchMadnessPredictor:
             for w_seed, l_seed, count in top_upsets[:5]:
                 print(f"Seed #{w_seed} beating Seed #{l_seed}: {count} times")
 
+    def display_score_distribution(self, use_plotly=True, min_season=None, max_season=None, game_type='all'):
+        """
+        Displays the distribution of scores for winning and losing teams.
         
+        Parameters:
+        -----------
+        use_plotly : bool, optional (default=True)
+            If True, uses plotly for interactive visualization. If False, uses seaborn.
+        min_season : int, optional
+            Minimum season to include in the analysis
+        max_season : int, optional
+            Maximum season to include in the analysis
+        game_type : str, optional (default='all')
+            Type of games to include: 'all', 'regular', or 'tournament'
+        
+        Returns:
+        --------
+        None, displays the plot
+        """
+        # Filter data based on parameters
+        if game_type == 'regular':
+            df = self.all_detailed_results[self.all_detailed_results['ST'] == 'S']
+        elif game_type == 'tournament':
+            df = self.all_detailed_results[self.all_detailed_results['ST'] == 'T']
+        else:
+            df = self.all_detailed_results
+
+        if min_season is not None:
+            df = df[df['Season'] >= min_season]
+        if max_season is not None:
+            df = df[df['Season'] <= max_season]
+
+        if use_plotly:
+            # Create figure with secondary y-axis
+            fig = go.Figure()
+
+            # Add traces for winning and losing scores
+            fig.add_trace(go.Histogram(
+                x=df['WScore'],
+                name='Winning Score',
+                nbinsx=30,
+                marker_color='blue',
+                opacity=0.7
+            ))
+
+            fig.add_trace(go.Histogram(
+                x=df['LScore'],
+                name='Losing Score',
+                nbinsx=30,
+                marker_color='red',
+                opacity=0.7
+            ))
+
+            # Update layout
+            title_text = "Score Distribution of Winning & Losing Teams"
+            if min_season or max_season:
+                title_text += f" ({min_season or 'All'}-{max_season or 'Present'})"
+            if game_type != 'all':
+                title_text += f" - {game_type.title()} Games"
+
+            fig.update_layout(
+                title=dict(
+                    text=title_text,
+                    x=0.5,
+                    font=dict(size=18)
+                ),
+                xaxis_title="Score",
+                yaxis_title="Frequency",
+                barmode='overlay',
+                height=600,
+                width=1000,
+                showlegend=True,
+                legend=dict(
+                    yanchor="top",
+                    y=0.99,
+                    xanchor="right",
+                    x=0.99
+                )
+            )
+
+            # Add mean lines
+            w_mean = df['WScore'].mean()
+            l_mean = df['LScore'].mean()
+
+            fig.add_vline(x=w_mean, line_dash="dash", line_color="blue",
+                         annotation_text=f"Win Mean: {w_mean:.1f}")
+            fig.add_vline(x=l_mean, line_dash="dash", line_color="red",
+                         annotation_text=f"Loss Mean: {l_mean:.1f}")
+
+            fig.show()
+
+            # Create a statistics table using plotly
+            stats_fig = go.Figure(data=[go.Table(
+                header=dict(
+                    values=['Statistic', 'Winning Teams', 'Losing Teams'],
+                    fill_color='royalblue',
+                    align='center',
+                    font=dict(color='white', size=12)
+                ),
+                cells=dict(
+                    values=[
+                        ['Mean Score', 'Median Score', 'Standard Deviation', 'Minimum Score', 'Maximum Score'],
+                        [
+                            f"{w_mean:.1f}",
+                            f"{df['WScore'].median():.1f}",
+                            f"{df['WScore'].std():.1f}",
+                            f"{df['WScore'].min():.0f}",
+                            f"{df['WScore'].max():.0f}"
+                        ],
+                        [
+                            f"{l_mean:.1f}",
+                            f"{df['LScore'].median():.1f}",
+                            f"{df['LScore'].std():.1f}",
+                            f"{df['LScore'].min():.0f}",
+                            f"{df['LScore'].max():.0f}"
+                        ]
+                    ],
+                    align='center',
+                    fill_color=[['lightgrey', 'white'] * 3],
+                    font=dict(color='black', size=11)
+                )
+            )])
+
+            # Update table layout
+            stats_fig.update_layout(
+                title=dict(
+                    text="Score Statistics Summary",
+                    x=0.5,
+                    font=dict(size=16)
+                ),
+                width=800,
+                height=300,
+                margin=dict(t=50, b=20)
+            )
+
+            # Add a row for margin of victory statistics
+            margin_fig = go.Figure(data=[go.Table(
+                header=dict(
+                    values=['Margin of Victory Statistics', 'Value'],
+                    fill_color='royalblue',
+                    align='center',
+                    font=dict(color='white', size=12)
+                ),
+                cells=dict(
+                    values=[
+                        ['Average Margin', 'Median Margin', 'Maximum Margin', 'Minimum Margin', 'Std Dev of Margin'],
+                        [
+                            f"{(w_mean - l_mean):.1f}",
+                            f"{(df['WScore'] - df['LScore']).median():.1f}",
+                            f"{(df['WScore'] - df['LScore']).max():.1f}",
+                            f"{(df['WScore'] - df['LScore']).min():.1f}",
+                            f"{(df['WScore'] - df['LScore']).std():.1f}"
+                        ]
+                    ],
+                    align='center',
+                    fill_color=[['lightgrey', 'white'] * 3],
+                    font=dict(color='black', size=11)
+                )
+            )])
+
+            # Update margin table layout
+            margin_fig.update_layout(
+                title=dict(
+                    text="Margin of Victory Statistics",
+                    x=0.5,
+                    font=dict(size=16)
+                ),
+                width=800,
+                height=250,
+                margin=dict(t=50, b=20)
+            )
+
+            # Display both tables
+            stats_fig.show()
+            margin_fig.show()
+
+            # Print text version for non-interactive environments
+            print(f"\nScore Statistics:")
+            print(f"Winning Teams - Mean: {w_mean:.1f}, Median: {df['WScore'].median():.1f}, "
+                  f"Std: {df['WScore'].std():.1f}")
+            print(f"Losing Teams  - Mean: {l_mean:.1f}, Median: {df['LScore'].median():.1f}, "
+                  f"Std: {df['LScore'].std():.1f}")
+            print(f"Average Margin of Victory: {(w_mean - l_mean):.1f} points")
+
+        else:
+            # Create seaborn plot
+            plt.figure(figsize=(12, 6))
+            sns.histplot(data=df, x='WScore', bins=30, kde=True, color='blue', label='Winning Score', alpha=0.5)
+            sns.histplot(data=df, x='LScore', bins=30, kde=True, color='red', label='Losing Score', alpha=0.5)
+            
+            # Add mean lines
+            plt.axvline(df['WScore'].mean(), color='blue', linestyle='--', 
+                       label=f'Win Mean: {df["WScore"].mean():.1f}')
+            plt.axvline(df['LScore'].mean(), color='red', linestyle='--', 
+                       label=f'Loss Mean: {df["LScore"].mean():.1f}')
+            
+            title = "Score Distribution of Winning & Losing Teams"
+            if min_season or max_season:
+                title += f"\n({min_season or 'All'}-{max_season or 'Present'})"
+            if game_type != 'all':
+                title += f" - {game_type.title()} Games"
+                
+            plt.title(title)
+            plt.xlabel("Score")
+            plt.ylabel("Frequency")
+            plt.legend()
+            plt.show()
+
 if __name__ == '__main__':
     data_dir = 'data/'
     predictor = MarchMadnessPredictor(data_dir)
     predictor.load_data()
     predictor.display_win_distribution()
+    predictor.display_score_distribution()
+
+    # Default usage (Plotly visualization of all games)
+    predictor.display_score_distribution()
+
+    # Use seaborn instead of Plotly
+    predictor.display_score_distribution(use_plotly=False)
+
+    # Show only tournament games from 2015-2020
+    predictor.display_score_distribution(min_season=2015, max_season=2020, game_type='tournament')
+
+    # Show only regular season games
+    predictor.display_score_distribution(game_type='regular')
