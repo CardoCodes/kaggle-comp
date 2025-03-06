@@ -39,6 +39,28 @@ or alternatively you can install using the requirements.txt file.
 pip install -r requirements.txt
 ```
 
+## Repository Structure
+
+### Python (.py) Files
+The Python files in this repository (e.g., `March_Madness_Prediction.py`, `train_model.py`) are designed for model testing, development, and maintenance. These files contain the core implementation of the prediction algorithms, data processing pipelines, and evaluation metrics. They are meant to be:
+
+- Modular and reusable components
+- Easy to maintain and update
+- Used for local testing and model improvements
+- The foundation for the production-ready prediction system
+
+If you're contributing to this project or want to understand the implementation details, these files are the primary codebase to explore.
+
+### Jupyter Notebook (.ipynb)
+The Jupyter Notebook in this repository is specifically designed for Kaggle submissions. It:
+
+- Provides an interactive environment to run predictions
+- Contains visualizations and explanations of the model's performance
+- Is formatted to be compatible with Kaggle's notebook environment
+- Serves as both documentation and an executable pipeline for competition submissions
+
+For Kaggle competition purposes, you should use the notebook, which imports and utilizes the functionality from the Python modules while presenting results in a format suitable for the competition.
+
 ## Running
 
 Im currently working on a .py file that can be ran in bash terminal. A .ipynb file will be created to support a draft submission for kaggle.
