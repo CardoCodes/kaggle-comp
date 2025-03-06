@@ -79,7 +79,11 @@ def main():
     bins = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     results_df['PredictionBin'] = pd.cut(results_df['Predicted'], bins=bins)
     
-    calibration = results_df.groupby('PredictionBin').agg({
+    # Currently, when you use groupby() on categorical data, pandas includes all 
+    # categories in the results by default (observed=False), even if some categories
+    # have no data.
+    # calibration = results_df.groupby('PredictionBin').agg({ 
+    calibration = results_df.groupby('PredictionBin', observed=False).agg({
         'Actual': 'mean',
         'Predicted': 'mean',
         'Season': 'count'
