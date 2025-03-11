@@ -30,7 +30,7 @@ mv *.csv ./data
 Use the following pip install command to install all the packages needed for this project.
 
 ```bash
-pip install numpy pandas matplotlib seaborn plotly
+pip install numpy pandas matplotlib seaborn plotly xgboost scikit-learn
 ```
 
 or alternatively you can install using the requirements.txt file.
