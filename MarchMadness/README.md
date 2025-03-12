@@ -1,6 +1,6 @@
 # March Madness Kaggle Competition
 
-## Installation
+## Data Setup
 
 This project uses the data from the [March Madness Kaggle Competition](https://www.kaggle.com/competitions/march-machine-learning-mania-2025).
 
@@ -27,6 +27,9 @@ unzip march-machine-learning-mania-2025.zip
 mv *.csv ./data
 ```
 
+## Setup Guides
+
+### Windows Setup
 Use the following pip install command to install all the packages needed for this project.
 
 ```bash
@@ -38,6 +41,57 @@ or alternatively you can install using the requirements.txt file.
 ```bash
 pip install -r requirements.txt
 ```
+
+### Linux Setup
+
+#### Option 1: Using a Virtual Environment (Recommended)
+
+Creating a virtual environment is the recommended approach for data science projects as it keeps dependencies isolated and avoids conflicts with system packages.
+
+1. Install required system packages:
+```bash
+sudo apt install python3-full python3-venv
+```
+
+2. Create a virtual environment in your project directory:
+```bash
+python3 -m venv venv
+```
+
+3. Activate the virtual environment:
+```bash
+source venv/bin/activate
+```
+
+4. Install the required packages:
+```bash
+pip install numpy pandas matplotlib seaborn plotly xgboost scikit-learn
+```
+
+or using requirements.txt:
+```bash
+pip install -r requirements.txt
+```
+
+5. Run Jupyter (if needed):
+```bash
+jupyter notebook
+```
+
+When you're done working, deactivate the virtual environment:
+```bash
+deactivate
+```
+
+#### Option 2: System-wide Installation
+
+If you prefer to install packages system-wide (not recommended for most data science work):
+
+```bash
+sudo apt install python3-pandas python3-numpy python3-matplotlib python3-seaborn python3-plotly python3-xgboost python3-sklearn python3-setuptools
+```
+
+Note: Some packages like plotly might not be available in the default Ubuntu repositories or might be under different names. You might need to install some packages via pip even with this approach.
 
 ## Repository Structure
 
