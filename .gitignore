@@ -1,9 +1,7 @@
 /MarchMadness/data
 MarchMadness/xgboost_model.pkl
 marchmadness_env
-march_madness_predictor/
-README.md
-requirements.txt
+march_madness_predictor/requirements.txt
 run_march_madness.py
 images/
 MarchMadness/submission.csv

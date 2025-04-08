@@ -95,16 +95,6 @@ Note: Some packages like plotly might not be available in the default Ubuntu rep
 
 ## Repository Structure
 
-### Python (.py) Files
-The Python files in this repository (e.g., `March_Madness_Prediction.py`, `train_model.py`) are designed for model testing, development, and maintenance. These files contain the core implementation of the prediction algorithms, data processing pipelines, and evaluation metrics. They are meant to be:
-
-- Modular and reusable components
-- Easy to maintain and update
-- Used for local testing and model improvements
-- The foundation for the production-ready prediction system
-
-If you're contributing to this project or want to understand the implementation details, these files are the primary codebase to explore.
-
 ### Jupyter Notebook (.ipynb)
 The Jupyter Notebook in this repository is specifically designed for Kaggle submissions. It:
 
@@ -187,20 +177,3 @@ def create_model(self):
 45       FTADiff    0.055830
 """
 ```
-
-3. **Probability calibration** - Our model is optimized for the Brier score metric used in the competition:
-
-```python
-def calculate_brier_score(self, actual, predicted):
-    """
-    Calculate the Brier score - mean squared error of predictions
-    Lower is better (perfect score is 0)
-    """
-    return np.mean((predicted - actual) ** 2)
-```
-
-The results demonstrate excellent performance, with a Brier score of 0.00349 on validation data and 99.8% accuracy. Field goal percentage difference between teams emerged as the most important predictor (40.5% of model importance), followed by assist difference (16.1%).
-
-## Running
-
-Im currently working on a .py file that can be ran in bash terminal. A .ipynb file will be created to support a draft submission for kaggle.
