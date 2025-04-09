@@ -5,3 +5,4 @@ march_madness_predictor/requirements.txt
 run_march_madness.py
 images/
 MarchMadness/submission.csv
+.venv/
