@@ -6,3 +6,5 @@ run_march_madness.py
 images/
 MarchMadness/submission.csv
 .venv/
+.cursor/
+/data/

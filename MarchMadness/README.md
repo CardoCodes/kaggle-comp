@@ -25,11 +25,56 @@ Once you have installed the kaggle dataset, you can unzip the file and move it t
 ```bash
 unzip march-machine-learning-mania-2025.zip
 mv *.csv ./data
+rm march-machine-learning-mania-2025.zip
 ```
 
 ## Setup Guides
 
 ### Windows Setup
+
+#### Option 1: Using a Virtual Environment (Recommended)
+
+Creating a virtual environment is the recommended approach for data science projects as it keeps dependencies isolated and avoids conflicts with system packages.
+
+1. Create a virtual environment in your project directory:
+```bash
+python -m venv .venv
+```
+
+2. Activate the virtual environment:
+```bash
+# Using Command Prompt
+.venv\Scripts\activate
+
+# Using PowerShell
+.venv\Scripts\Activate.ps1
+
+# Using Git Bash
+source .venv/Scripts/activate
+```
+
+3. Install the required packages:
+```bash
+pip install numpy pandas matplotlib seaborn plotly xgboost scikit-learn
+```
+
+or using requirements.txt:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run Jupyter (if needed):
+```bash
+jupyter notebook
+```
+
+When you're done working, deactivate the virtual environment:
+```bash
+deactivate
+```
+
+#### Option 2: System-wide Installation
+
 Use the following pip install command to install all the packages needed for this project.
 
 ```bash
