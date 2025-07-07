@@ -5,7 +5,7 @@ This project is for the DRW Crypto Market Prediction competition on Kaggle. The 
 
 ## Project Structure
 ```
-DRW-Crypto-Market-Prediction/
+CryptoMarketPrediction/
 ├── data/                           # Competition data files
 ├── crypto_market_analysis.ipynb    # Main analysis notebook
 └── README.md                      # This file
