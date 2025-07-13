@@ -11,3 +11,4 @@ MarchMadness/submission.csv
 CryptoMarketPrediction/data/*
 CryptoMarketPrediction/submission.csv
 *.pkl
+/CryptoMarketPrediction/*.pkl
