@@ -9,3 +9,5 @@ scikit-learn
 joblib
 lightgbm
 ipykernel 
+koolbox
+catboost
