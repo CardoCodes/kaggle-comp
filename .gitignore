@@ -13,3 +13,4 @@ CryptoMarketPrediction/submission.csv
 *.pkl
 /CryptoMarketPrediction/*.pkl
 drw-crypto-market-prediction-ensemble.ipynb
+/CryptoMarketPrediction/catboost_info
